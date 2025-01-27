@@ -31,4 +31,22 @@ public class Trie
         }
         return node.IsWord;
     }
+
+    public void Traverse()
+    {
+        var stack = new Stack<(TrieNode node, string prefix)>();
+        stack.Push((_root, ""));
+
+        while (stack.Count > 0)
+        {
+            var (node, prefix) = stack.Pop();
+
+            Console.WriteLine(prefix);
+    
+            foreach (var child in node.Children.Reverse()) // Reverse to maintain order
+            {
+                stack.Push((child.Value, prefix + child.Key));
+            }
+        }
+    }
 }
