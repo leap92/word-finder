@@ -4,11 +4,12 @@ using System.Linq;
 
 public class WordFinder
 {
-    private readonly char [,] matrix;
+    private readonly char[,] matrix;
 
     public WordFinder(IEnumerable<string> rows)
     {
-        if (rows == null || rows.Count() == 0 ) {
+        if (rows == null || rows.Count() == 0)
+        {
             throw new ArgumentException("Word finder matrix is empty");
         }
         //we are going to assume the matrix input sets our matrix left to right, top to bottom
@@ -31,24 +32,44 @@ public class WordFinder
 
         foreach (var word in wordSet)
         {
-            trie.AddWord(word);            
+            trie.AddWord(word);
         }
 
         //print words for debugging purposes
         trie.Traverse();
 
-        var found1 = SearchLeftToRight(wordSet);
-       // SearchRightToLeft();
-        //SearchTopToBottom();
-       // SearchBottomToTop();
+        var results = new Dictionary<string, int>(); //save words using word as key, and value is amount of times that word is found
         
+            results.Add(SearchLeftToRight(trie));
+            // SearchRightToLeft();
+            // SearchTopToBottom();
+            // SearchBottomToTop();
+        
+
     }
 
-    private void SearchLeftToRight(HashSet<string> wordSet)
+    private void SearchLeftToRight(Trie trie)
     {
-        for (int i = 0; i < length; i++)
+        var foundWords = new List<string>();
+        for (int row = 0; row < matrix.GetLength(0); row++)
         {
-            
+            string candidate = "";
+            for (int col = 0; col < matrix.GetLength(1); col++)
+            {
+                char c = matrix[row,col];
+
+                candidate += c;
+                if (trie.Search(candidate)) {
+                    foundWords.Add(candidate);
+                }
+
+                for (int subsequentCol = 0; subsequentCol < matrix.GetLength(1); subsequentCol++)
+                {
+                    
+                }
+                                
+                
+            }
         }
     }
 }

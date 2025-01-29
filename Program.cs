@@ -12,4 +12,3 @@
 ]);
 
 finder.Find(["word", "word", "hidden", "gem", "gear", "worry"]);
-
